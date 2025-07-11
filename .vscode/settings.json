@@ -1,0 +1,7 @@
+{
+  "cSpell.words": ["stefanobartoletti"],
+  "eslint.useFlatConfig": true,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
+}

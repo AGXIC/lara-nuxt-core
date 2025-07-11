@@ -1,0 +1,21 @@
+@import 'tailwindcss';
+@import 'tailwindcss-primeui';
+
+@custom-variant child (& > *);
+@custom-variant child-hover (& > *:hover);
+
+@theme {
+  --font-sans: 'IranSans';
+  --aspect-ratio-auto: 'auto';
+  --aspect-ratio-square: '1/1';
+  --aspect-ratio-video: '16/9';
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

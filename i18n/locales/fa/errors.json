@@ -1,0 +1,18 @@
+{
+  "exceptions": {
+    "Forbidden": "ممنوع",
+    "Forbidden-Hint": "با عرض پوزش ، شما از دسترسی به این صفحه ممنوع است.",
+    "Page-Not-Found": "صفحه یافت نشد",
+    "Page-Not-Found-Hint": "ببخشید ، صفحه‌ای که به دنبال آن هستید یافت نشد.",
+    "Server-Error": "خطای سرور",
+    "Server-Error-Hint": "اوه ، مشکلی روی سرورهای ما پیش آمد.",
+    "Service-Unavailable": "سرویس در دسترس نیست",
+    "Service-Unavailable-Hint": "ببخشید ، ما در حال انجام برخی از تعمیر و نگهداری هستیم. لطفاً به زودی بررسی کنید."
+  },
+  "validations": {
+    "required": "وارد کردن {name} ضروری است",
+    "invalid": "{name} وارد شده نامعتبر است",
+    "required_exact": "{name} باید دقیقاً حاوی {exact} کاراکتر باشد",
+    "required_min": "{name} باید حداقل حاوی {min} کاراکتر باشد"
+  }
+}
