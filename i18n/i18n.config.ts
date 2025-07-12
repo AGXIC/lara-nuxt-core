@@ -1,4 +1,4 @@
-export default {
+export default defineI18nConfig(() => ({
   datetimeFormats: {
     'fa-IR': {
       short: {
@@ -45,4 +45,4 @@ export default {
       },
     },
   },
-}
+}))

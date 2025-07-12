@@ -4,6 +4,8 @@
 @custom-variant child (& > *);
 @custom-variant child-hover (& > *:hover);
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: 'IranSans';
   --aspect-ratio-auto: 'auto';

@@ -23,9 +23,11 @@
               theme.$patch({ drawerVisible: event }),
             'pt:header:class': '!hidden',
             'pt:content:class': '!px-3 !pb-3 flex flex-col',
+            'pt:root:class': '!bg-slate-900',
+            position: $i18n.localeProperties.dir !== 'rtl' ? 'right' : 'left',
           }
         : {
-            class: 'p-2 h-full overflow-hidden flex flex-col',
+            class: 'px-2 pb-2 pt-4 h-full overflow-hidden flex flex-col',
           }
     "
     :is="device.isMobileOrTablet.value ? Drawer : 'aside'"
@@ -67,7 +69,7 @@
     <div class="xl:flex items-center gap-x-2 hidden">
       <Button v-slot="slotProps" asChild>
         <button
-          class="rounded-lg bg-slate-700/50 text-white border-none py-1 grow h-full hover:bg-slate-700 font-bold cursor-pointer transition-all"
+          class="rounded-lg dark:bg-slate-700/50 bg-slate-300 text-gray-800 dark:text-white border-none py-1 grow h-full dark:hover:bg-slate-700 hover:bg-slate-400 font-bold cursor-pointer transition-all"
           v-bind="slotProps.a11yAttrs"
           @click="profileMenuRef?.toggle"
           aria-controls="atlas-profile-menu"

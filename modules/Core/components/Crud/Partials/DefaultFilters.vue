@@ -82,7 +82,7 @@
     </div>
   </BlockUI>
   <Popover @hide="activeAttr = undefined" ref="filterPopoverEl">
-    <div class="flex flex-col gap-y-2" v-if="activeAttr">
+    <div class="flex flex-col gap-y-2" v-focustrap v-if="activeAttr">
       <slot
         :name="`filter-${activeAttr.attribute.toString()}`"
         :value="filters[activeAttr.attribute]"

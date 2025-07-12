@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-  const { locale } = useI18n()
+  import { all } from 'primelocale'
+
+  const { localeProperties, defaultDirection, locale } = useI18n()
 
   useHead({
     htmlAttrs: {
-      dir: locale.value.includes('fa') ? 'rtl' : 'ltr',
+      dir: localeProperties.value.dir || defaultDirection,
     },
   })
 
@@ -45,6 +47,11 @@
       if (newValue) confirmLogout()
     },
   )
+
+  const primeVue = usePrimeVue()
+
+  // @ts-expect-error include available langs
+  primeVue.config.locale = all[locale.value.substring(0, 2)]
 </script>
 
 <template>

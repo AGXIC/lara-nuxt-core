@@ -65,6 +65,7 @@ export default defineNuxtConfig({
       include: '*',
       exclude: ['FileUpload', 'DatePicker'],
     },
+    importTheme: { from: '~/providers/theme.ts' },
   },
   laravelSanctum: {
     authMode: 'token',

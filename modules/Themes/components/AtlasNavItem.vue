@@ -8,6 +8,7 @@
     hasSubmenu: boolean
     noGlow?: boolean
     expanded?: boolean
+    noIcon?: boolean
   }>()
 
   const parentRef = useTemplateRef('parentEl')
@@ -26,7 +27,7 @@
     } else return {}
   })
 
-  const expand = shallowRef(false)
+  const expand = shallowRef(props.active)
 </script>
 
 <template>
@@ -37,20 +38,28 @@
   >
     <div
       :class="[
-        'rounded-xl 2xl:px-3 px-2 2xl:py-2 py-1 relative z-10 group-hover:bg-slate-800 transition duration-300',
-        expand || expanded ? 'bg-slate-800' : 'bg-slate-900',
+        'rounded-xl 2xl:px-3 px-2 2xl:py-2 py-1 relative z-10 dark:group-hover:bg-slate-800 group-hover:bg-slate-300 transition duration-300',
+        expand || expanded
+          ? 'dark:bg-slate-800 bg-slate-300'
+          : 'dark:bg-slate-900 bg-slate-200',
       ]"
       ref="parentEl"
     >
       <div class="flex items-center justify-between cursor-pointer" v-ripple>
         <div class="flex items-center gap-x-2">
-          <component
-            class="2xl:size-6 size-5"
-            v-bind="_isString(item.icon) ? { name: item.icon } : {}"
-            v-if="item.icon"
-            :is="_isString(item.icon) ? Icon : item.icon"
-          />
-          <Icon class="size-2 2xl:size-3" v-else name="tabler:circle-filled" />
+          <template v-if="!noIcon">
+            <component
+              class="2xl:size-6 size-5"
+              v-bind="_isString(item.icon) ? { name: item.icon } : {}"
+              v-if="item.icon"
+              :is="_isString(item.icon) ? Icon : item.icon"
+            />
+            <Icon
+              class="size-2 2xl:size-3"
+              v-else
+              name="tabler:circle-filled"
+            />
+          </template>
           <span :class="[active && 'text-primary']">{{ item.label }}</span>
         </div>
         <Icon
@@ -60,8 +69,8 @@
         />
       </div>
       <transition-group
-        class="flex flex-col -mt-2"
         v-if="hasSubmenu"
+        :class="['flex flex-col', expand && '-mt-2']"
         appear
         name="accordion"
         tag="div"
