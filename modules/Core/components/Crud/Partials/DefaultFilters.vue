@@ -83,40 +83,47 @@
   </BlockUI>
   <Popover @hide="activeAttr = undefined" ref="filterPopoverEl">
     <div class="flex flex-col gap-y-2" v-if="activeAttr">
-      <FloatLabel variant="on">
-        <label :for="`field-${activeAttr.attribute.toString()}`">{{
-          activeAttr?.label
-        }}</label>
-        <MultiSelect
-          v-if="activeAttr.options"
-          v-model="filters[activeAttr.attribute]"
-          :display="
-            filters[activeAttr.attribute]?.length > 1 ? 'chip' : 'comma'
-          "
-          :id="`field-${activeAttr.attribute.toString()}`"
-          :options="activeAttr.options"
-          filter
-          fluid
-          option-label="label"
-          option-value="value"
-        ></MultiSelect>
-        <DateTimePicker
-          v-else-if="['date', 'datetime', 'time'].includes(activeAttr.type)"
-          v-model="filters[activeAttr.attribute]"
-          :input-id="`field-${activeAttr?.attribute.toString()}`"
-          :range="
-            activeAttr.attribute.toString().toLowerCase().includes('between') &&
-            activeAttr.type !== 'time'
-          "
-          :type="activeAttr.type"
-          fluid
-        ></DateTimePicker>
-        <InputText
-          v-else-if="activeAttr.type === 'string'"
-          v-model="filters[activeAttr.attribute]"
-          :id="`field-${activeAttr?.attribute.toString()}`"
-        ></InputText>
-      </FloatLabel>
+      <slot
+        :name="`filter-${activeAttr.attribute.toString()}`"
+        :value="filters[activeAttr.attribute]"
+      >
+        <FloatLabel variant="on">
+          <label :for="`field-${activeAttr.attribute.toString()}`">{{
+            activeAttr?.label
+          }}</label>
+          <MultiSelect
+            v-if="activeAttr.options"
+            v-model="filters[activeAttr.attribute]"
+            :display="
+              filters[activeAttr.attribute]?.length > 1 ? 'chip' : 'comma'
+            "
+            :id="`field-${activeAttr.attribute.toString()}`"
+            :options="activeAttr.options"
+            filter
+            fluid
+            option-label="label"
+            option-value="value"
+          ></MultiSelect>
+          <DateTimePicker
+            v-else-if="['date', 'datetime', 'time'].includes(activeAttr.type)"
+            v-model="filters[activeAttr.attribute]"
+            :input-id="`field-${activeAttr?.attribute.toString()}`"
+            :range="
+              activeAttr.attribute
+                .toString()
+                .toLowerCase()
+                .includes('between') && activeAttr.type !== 'time'
+            "
+            :type="activeAttr.type"
+            fluid
+          ></DateTimePicker>
+          <InputText
+            v-else-if="activeAttr.type === 'string'"
+            v-model="filters[activeAttr.attribute]"
+            :id="`field-${activeAttr?.attribute.toString()}`"
+          ></InputText>
+        </FloatLabel>
+      </slot>
       <Button
         @click="filterPopoverRef?.hide"
         icon="pi pi-check"

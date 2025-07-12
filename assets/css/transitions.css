@@ -16,3 +16,18 @@
 .fade-move {
   transition: transform 0.6s ease;
 }
+
+.accordion-enter-active,
+.accordion-leave-active {
+  transition: all 0.3s ease;
+}
+
+.accordion-enter-from,
+.accordion-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.accordion-move {
+  transition: transform 0.3s ease;
+}

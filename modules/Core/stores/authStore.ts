@@ -6,6 +6,7 @@ export const useAuthStore = defineStore('auth', () => {
   const roles = ref<string[]>([])
   const permissions = ref<IPermissions[]>([])
   const token = ref<string>()
+  const showLogout = ref(false)
 
   const hasRole = (roleName: string) => roles.value.includes(roleName)
 
@@ -37,6 +38,7 @@ export const useAuthStore = defineStore('auth', () => {
     roles,
     permissions,
     token,
+    showLogout,
     // actions
     hasRole,
     hasPermission,

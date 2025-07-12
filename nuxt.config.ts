@@ -32,6 +32,7 @@ export default defineNuxtConfig({
     '@qirolab/nuxt-sanctum-authentication',
     'nuxt-lodash',
     './modules/Core',
+    './modules/Themes',
   ],
   runtimeConfig: {
     public: {
@@ -42,6 +43,7 @@ export default defineNuxtConfig({
       mapApiKey: process.env.NESHAN_WEB_KEY,
       mapServiceKey: process.env.NESHAN_SERVICE_KEY,
       recaptchaSiteKey: process.env.GOOGLE_RECAPTCHA,
+      dashboardRoute: process.env.DASHBOARD_ROUTE,
     },
   },
   primevue: {
@@ -189,7 +191,10 @@ export default defineNuxtConfig({
   },
   icon: {
     mode: 'css',
-    collections: ['ph', 'fluent', 'mingcute', 'tabler'],
+    serverBundle: {
+      collections: ['ph', 'fluent', 'mingcute', 'tabler'],
+      externalizeIconsJson: true,
+    },
     cssLayer: 'base',
   },
 })

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import 'flag-icons/css/flag-icons.css'
+  import 'flag-icons/css/flag-icons.min.css'
   import { twJoin } from 'tailwind-merge'
 
   interface IProps {

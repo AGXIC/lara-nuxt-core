@@ -122,7 +122,6 @@
     confirm.require({
       message: msg,
       header: title,
-      icon: 'pi pi-exclamation-triangle',
       rejectLabel: t('Cancel'),
       rejectProps: {
         label: t('Cancel'),
@@ -263,7 +262,15 @@
         :fields="dataFields?.filter(({ filterable }) => filterable)"
         :loading="loading"
         @data:fetch="fetchData"
-      />
+      >
+        <template
+          v-for="(item, i) in Object.keys($slots)"
+          :key="i"
+          #[item]="slotProps"
+        >
+          <slot v-bind="slotProps" :name="item"></slot>
+        </template>
+      </LazyCrudPartialsDefaultFilters>
       <LazyCrudPartialsDefaultWidgets />
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-2">
@@ -447,7 +454,6 @@
       </div>
     </template>
   </Card>
-  <ConfirmDialog />
   <Dialog
     v-if="!_isString(formComponent)"
     v-model:visible="formDialog.dialog"
