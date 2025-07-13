@@ -17,7 +17,6 @@
 
   const commandPalette = shallowRef(false)
   const searchCommand = ref('')
-  const lastItemSelected = useLocalStorage('atlas-history-search', [])
 
   const searchedNavItems = computed(() =>
     searchCommand.value.length
@@ -127,7 +126,7 @@
           <div class="flex items-center grow w-full justify-between">
             <div class="flex items-center gap-x-2">
               <Icon class="size-6" name="mingcute:search-line" />
-              <span>{{ $t('Search') }}</span>
+              <span>{{ $t('Search') }} ...</span>
             </div>
             <KBD
               class="opacity-50 group-hover:opacity-100 transition duration-300"
@@ -150,15 +149,17 @@
     <FieldSet :legend="$t('Menu')">
       <ScrollPanel class="w-full h-60" pt:content:class="flex flex-col gap-y-2">
         <AtlasNavItem
-          v-for="(item, i) in searchedNavItems"
+          v-for="(item, i) in searchedNavItems.filter((it) => !!it)"
           :active="!!item.active"
           :hasSubmenu="!!item.children"
           :item="item"
           :key="i"
+          no-glow
           no-icon
         />
       </ScrollPanel>
     </FieldSet>
+    <Divider v-if="$slots.toolbarCommandPalette" />
     <slot :search="searchCommand" name="toolbarCommandPalette"></slot>
   </Dialog>
 </template>
