@@ -157,6 +157,10 @@
           no-glow
           no-icon
         />
+        <CrudPartialsDefaultEmpty
+          v-if="!searchedNavItems.filter((it) => !!it).length"
+          :options="{ noCreate: true, noRefresh: true }"
+        />
       </ScrollPanel>
     </FieldSet>
     <Divider v-if="$slots.toolbarCommandPalette" />

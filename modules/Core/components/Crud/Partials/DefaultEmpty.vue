@@ -1,5 +1,10 @@
 <script lang="ts" setup>
-  defineProps<{ pronounce?: string; loading?: boolean; pageName?: string }>()
+  defineProps<{
+    pronounce?: string
+    loading?: boolean
+    pageName?: string
+    options?: { noCreate?: boolean; noRefresh?: boolean }
+  }>()
 
   const auth = useAuthStore()
 
@@ -19,9 +24,12 @@
         })
       }}
     </div>
-    <div class="mt-5 flex items-center gap-x-2">
+    <div
+      class="mt-5 flex items-center gap-x-2"
+      v-if="!options?.noCreate && !options?.noRefresh"
+    >
       <Button
-        v-if="auth.hasPermission(`${pageName}-add`)"
+        v-if="auth.hasPermission(`${pageName}-add`) && !options?.noCreate"
         :label="
           $t('Add', {
             name: pronounce || t('record'),
@@ -31,6 +39,7 @@
         icon="pi pi-plus-circle"
       ></Button>
       <Button
+        v-if="!options?.noRefresh"
         :label="$t('Refresh')"
         :loading="loading"
         @click="emit('data:refresh')"

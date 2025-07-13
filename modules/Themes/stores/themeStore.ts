@@ -25,31 +25,7 @@ export const useThemeStore = defineStore('themeStore', () => {
 
   const auth = useAuthStore()
 
-  const navItems = ref<TMenuItem[]>([
-    {
-      label: 'text',
-      to: { name: 'index' },
-      icon: 'tabler:dashboard',
-      can: true,
-    },
-    {
-      label: 'text',
-      children: [
-        {
-          label: 'text',
-          to: { name: 'index' },
-          can: true,
-        },
-        {
-          label: 'text',
-          to: { name: 'index' },
-          can: true,
-        },
-      ],
-      icon: 'tabler:dashboard',
-      can: true,
-    },
-  ])
+  const navItems = ref<TMenuItem[]>([])
   const drawerVisible = shallowRef(false)
   const profileItems = ref<MenuItem[]>([])
 

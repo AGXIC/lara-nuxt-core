@@ -21,6 +21,7 @@
   "Logout Success": "خروج موفق",
   "Menu": "منو",
   "Mute": "سکوت",
+  "No record found": "هیچ {record} یافت نشد",
   "Please switch your keyboard to English": "Please switch your keyboard to English",
   "Please switch your keyboard to Persian": "Please switch your keyboard to Persian",
   "Record": "رکورد",
@@ -35,5 +36,6 @@
   "The entered email is not valid": "ایمیل وارد شده معتبر نیست",
   "The entered number is not valid": "شماره وارد شده معتبر نیست",
   "Until": "تا",
-  "lat and lng are required": "LAT و LNG مورد نیاز است"
+  "lat and lng are required": "LAT و LNG مورد نیاز است",
+  "record": "رکورد"
 }
