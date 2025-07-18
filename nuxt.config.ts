@@ -132,6 +132,7 @@ export default defineNuxtConfig({
     providers: {
       IranSans: '~/providers/iransans',
       digikala: '~/providers/digikala',
+      Poppins: '~/providers/poppins',
     },
     families: [
       {
@@ -142,6 +143,13 @@ export default defineNuxtConfig({
         weights: [300, 400, 500, 700, 900],
       },
       { name: 'digikala', preload: true, global: true, provider: 'digikala' },
+      {
+        name: 'Poppins',
+        preload: true,
+        global: true,
+        provider: 'Poppins',
+        weights: [300, 400, 500, 700, 900],
+      },
     ],
     processCSSVariables: true,
   },
