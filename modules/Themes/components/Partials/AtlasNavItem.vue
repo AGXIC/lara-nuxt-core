@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { Icon } from '#components'
-  import type { TMenuItem } from '../stores/themeStore'
+  import type { TMenuItem } from '../../stores/themeStore'
 
   const props = defineProps<{
     active: boolean

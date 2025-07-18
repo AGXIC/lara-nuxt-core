@@ -1,4 +1,4 @@
-import { useToast as primeToast } from 'primevue/usetoast'
+import { useToast as primeToast } from 'primevue'
 
 interface IToast {
   title?: string

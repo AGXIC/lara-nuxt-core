@@ -40,7 +40,6 @@
     "nuxt": "^3.17.5",
     "nuxt-lodash": "^2.5.3",
     "nuxt-svgo": "^4.2.2",
-    "nuxt-zod-i18n": "^1.11.5",
     "pinia": "^3.0.3",
     "primelocale": "^2.1.4",
     "primevue": "^4.3.5",

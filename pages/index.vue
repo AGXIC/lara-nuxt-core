@@ -1,7 +1,5 @@
 <script lang="ts" setup></script>
 
-<template>
-  <NuxtLayout name="AtlasPanel"></NuxtLayout>
-</template>
+<template></template>
 
 <style lang="scss" scoped></style>

@@ -1,5 +1,5 @@
 import { useAuthStore } from '../stores/authStore'
-import { useCoreStore } from './../stores/coreStore'
+import { useCoreStore } from '../stores/coreStore'
 import type { Pinia } from 'pinia'
 
 export default defineNuxtPlugin(async ({ $pinia, vueApp }) => {

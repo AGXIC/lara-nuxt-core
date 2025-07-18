@@ -38,10 +38,19 @@
           .filter(({ children }) => !children)
           .slice(0, 7),
   )
+
+  const { arrivedState, y } = useWindowScroll()
 </script>
 
 <template>
-  <Toolbar pt:root:class="!bg-transparent !rounded-none !border-none">
+  <Toolbar
+    :pt:root:class="[
+      '!rounded-t-none !border-none sticky top-0 !rounded-b-xl transition duration-500',
+      !arrivedState.top && y > 10
+        ? 'dark:!bg-slate-900/80 backdrop-blur-lg !bg-gray-50/80'
+        : 'dark:!bg-slate-900/0 !bg-gray-50/0',
+    ]"
+  >
     <template #end>
       <div
         class="flex items-center gap-x-2 rtl:flex-row-reverse"
@@ -119,7 +128,7 @@
               : {}
           "
           @click="commandPalette = true"
-          pt:root:class="2xl:!w-96 group 2xl:opacity-80 2xl:hover:opacity-100"
+          pt:root:class="2xl:!w-96 group 2xl:opacity-80 2xl:hover:opacity-100 dark:!bg-slate-800"
           severity="secondary"
           size="small"
         >

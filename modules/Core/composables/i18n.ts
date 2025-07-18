@@ -1,19 +1,54 @@
-export function t(key: string, args?: any | string | number): string {
-  const { $i18n }: any = useNuxtApp()
-  return $i18n.t(key, args)
+import { useNuxtApp } from '#app'
+
+export function t(
+  key: string,
+  args?: Record<string, any> | string | number,
+): string {
+  const { $i18n } = useNuxtApp()
+
+  if (!$i18n) {
+    console.warn('i18n instance not found')
+    return key
+  }
+
+  try {
+    return $i18n.t(key, args)
+  } catch (error) {
+    console.error('Translation error:', error)
+    return key
+  }
 }
 
 export function d(
-  date?: Date | string,
-  type?: 'date' | 'time' | 'long' | 'year',
+  date?: Date | string | null,
+  type: 'date' | 'time' | 'long' | 'year' = 'long',
 ): string {
-  const { $i18n }: any = useNuxtApp()
-  return date
-    ? '\u200E' + $i18n.d(new Date(date), type || 'long').replace(',', '')
-    : '—'
+  const { $i18n } = useNuxtApp()
+
+  if (!date) return '—'
+
+  try {
+    const dateObj = date instanceof Date ? date : new Date(date)
+    if (isNaN(dateObj.getTime())) return '—'
+
+    const formatted = $i18n?.d?.(dateObj, type) || dateObj.toLocaleString()
+    return '\u200E' + formatted.replace(',', '')
+  } catch (error) {
+    console.error('Date formatting error:', error)
+    return '—'
+  }
 }
 
-export function toCurrency(num: number, key?: string): string {
-  const { $i18n }: any = useNuxtApp()
-  return $i18n.n(!isNaN(num) ? num : 0, key)
+export function toCurrency(num: number | string, key = 'currency'): string {
+  const { $i18n } = useNuxtApp()
+
+  const number = typeof num === 'string' ? parseFloat(num) : num
+  const value = isNaN(number) ? 0 : number
+
+  try {
+    return $i18n?.n?.(value, key) || value.toString()
+  } catch (error) {
+    console.error('Currency formatting error:', error)
+    return value.toString()
+  }
 }

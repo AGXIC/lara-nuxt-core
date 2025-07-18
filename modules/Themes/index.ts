@@ -8,9 +8,9 @@ export default defineNuxtModule({
     configKey: 'agxicTheme',
   },
   setup(resolvedOptions, nuxt) {
-    // nuxt.hook('components:dirs', (app) => {
-    //   app.push({ path: `${__dirname}/components` })
-    // })
+    nuxt.hook('components:dirs', (app) => {
+      app.push({ path: `${__dirname}/components` })
+    })
     nuxt.hook('app:resolve', (app) => {
       app.layouts = {
         ...app.layouts,

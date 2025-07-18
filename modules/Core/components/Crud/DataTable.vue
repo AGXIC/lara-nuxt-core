@@ -4,7 +4,7 @@
     type IColumnsItem,
     useCrudDataTable,
   } from '../../composables/crudDataTable'
-  import { DataTable } from '#components'
+  import { DataTable } from 'primevue'
   import type { RouteRecordName } from 'vue-router'
   import { useCrudDataFields } from '../../composables/crudDataFields'
 

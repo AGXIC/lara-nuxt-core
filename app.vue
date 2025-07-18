@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import { all } from 'primelocale'
+  import { Toast, ConfirmDialog } from 'primevue'
 
   const { localeProperties, defaultDirection, locale } = useI18n()
 
@@ -63,7 +64,9 @@
       </template>
     </ConfirmDialog>
     <NuxtRouteAnnouncer />
-    <NuxtPage />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
     <NuxtLoadingIndicator />
   </div>
 </template>

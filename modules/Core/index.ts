@@ -37,17 +37,14 @@ export default defineNuxtModule({
 
     addServerHandler({
       route: '/neshan/getLocationAddress',
-      handler: resolve(
-        nuxt.options.srcDir,
-        'server/neshan/getLocationAddress.get.ts',
-      ),
+      handler: resolve(__dirname, './server/neshan/getLocationAddress.get.ts'),
       lazy: true,
       method: 'get',
     })
 
     addServerHandler({
       route: '/neshan/getLocation',
-      handler: resolve(nuxt.options.srcDir, 'server/neshan/getLocation.get.ts'),
+      handler: resolve(__dirname, './server/neshan/getLocation.get.ts'),
       lazy: true,
       method: 'get',
     })

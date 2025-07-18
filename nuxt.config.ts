@@ -91,6 +91,12 @@ export default defineNuxtConfig({
     resolve: {
       mainFields: ['browser', 'module', 'main', 'jsnext:main', 'jsnext'],
     },
+    ssr: {
+      noExternal: ['@chenfengyuan/vue-countdown', 'vue-countup-v3'],
+    },
+    optimizeDeps: {
+      include: ['vue-countup-v3', '@chenfengyuan/vue-countdown'],
+    },
   },
   postcss: {
     plugins: {
@@ -160,6 +166,7 @@ export default defineNuxtConfig({
   },
   future: {
     typescriptBundlerResolution: true,
+    compatibilityVersion: 4,
   },
   features: {
     inlineStyles: false,
@@ -202,7 +209,6 @@ export default defineNuxtConfig({
     mode: 'css',
     serverBundle: {
       collections: ['ph', 'fluent', 'mingcute', 'tabler'],
-      externalizeIconsJson: true,
     },
     cssLayer: 'base',
   },
