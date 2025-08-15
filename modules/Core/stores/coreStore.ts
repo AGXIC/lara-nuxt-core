@@ -26,6 +26,7 @@ interface ISiteInfo {
   logo?: string
   descriptions: string
   title: string
+  defaultImage: string
 }
 
 export const useCoreStore = defineStore('core', () => {

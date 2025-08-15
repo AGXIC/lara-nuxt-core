@@ -54,7 +54,7 @@
 
   const nuxtApp = useNuxtApp()
 
-  const token = useTokenStorage(nuxtApp).get()
+  const token = await useTokenStorage(nuxtApp).get()
 
   const coreStore = useCoreStore()
 
@@ -64,10 +64,11 @@
 
   function initResumable() {
     resumable.value = new Resumable({
-      target: runtime.public.apiUrl,
+      target: `${runtime.public.apiUrl}/media-library/upload`,
       chunkSize: (coreStore.uploader?.[props.fileType].size.chunk || 1) * 1024,
       setChunkTypeFromFile: true,
-      testChunks: false,
+      testChunks: true,
+      testMethod: 'GET',
       maxChunkRetries: 3,
       headers: {
         'Accept-Language': locale.value,
@@ -82,9 +83,13 @@
       uploaderOpts.upStarted = false
       uploaderOpts.upIsDone = false
       uploaderOpts.upPercentage = 0
+      files.forEach(
+        (file) =>
+          (file.uniqueIdentifier = `${file.file.size}-${file.file.name.replace(/[^a-zA-Z0-9_-]/g, '')}-${+new Date()}`),
+      )
       localFiles.value = files
-      resumable.value?.upload()
       uploaderOpts.startTime = Date.now()
+      resumable.value?.upload()
     })
 
     resumable.value.on('fileProgress', (file: any) => {
@@ -175,7 +180,7 @@
       if (props.crop) {
         cropFile.value = fileItems[0]
         showCropperDialog.value = true
-      } else if (fileItems.length) resumable.value?.addFiles(fileItems)
+      } else if (fileItems.length) await resumable.value?.addFiles(fileItems)
     }
   })
 

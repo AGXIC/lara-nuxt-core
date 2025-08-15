@@ -44,7 +44,10 @@
     data: dataFields,
     fetchFields,
     loading: fieldsLoading,
-  } = useCrudDataFields<T>(`${useId()}-${pageName}`, props.api || pageName)
+  } = useCrudDataFields<T>(
+    `${useId()}-${pageName}`,
+    props.api || pageName || '',
+  )
 
   const {
     data,
@@ -57,7 +60,7 @@
     fetchData,
     paginationOptions,
     loading: dataLoading,
-  } = useCrudDataTable<T>(`${useId()}-${pageName}`, props.api || pageName)
+  } = useCrudDataTable<T>(`${useId()}-${pageName}`, props.api || pageName || '')
 
   watch(
     dataLoading,
@@ -383,7 +386,7 @@
                 ></slot>
                 <Divider v-if="$slots.prependActions" layout="vertical" />
                 <CrudPartialsDefaultActions
-                  :page-name="pageName"
+                  :page-name="pageName || ''"
                   :restorable="!!data.deleted_at"
                   @data:delete="deleteItem(data.id)"
                   @data:duplicate="duplicateItem(data.id)"

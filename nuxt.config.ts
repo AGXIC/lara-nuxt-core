@@ -204,6 +204,14 @@ export default defineNuxtConfig({
     ipx: {
       maxAge: 2592000,
     },
+    screens: {
+      xs: 320,
+      sm: 640,
+      md: 768,
+      lg: 1024,
+      xl: 1280,
+      '2xl': 1600,
+    },
   },
   icon: {
     mode: 'css',

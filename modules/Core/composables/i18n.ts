@@ -1,9 +1,6 @@
 import { useNuxtApp } from '#app'
 
-export function t(
-  key: string,
-  args?: Record<string, any> | string | number,
-): string {
+export function t(key: string, args?: Record<string, any> | number): string {
   const { $i18n } = useNuxtApp()
 
   if (!$i18n) {
@@ -12,7 +9,7 @@ export function t(
   }
 
   try {
-    return $i18n.t(key, args)
+    return !!args ? $i18n.t(key, args as any) : $i18n.t(key)
   } catch (error) {
     console.error('Translation error:', error)
     return key

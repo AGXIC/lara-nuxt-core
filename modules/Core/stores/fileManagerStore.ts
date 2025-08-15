@@ -10,16 +10,20 @@ interface IFetchOptions {
 }
 
 export const useFileManagerStore = defineStore('fileManager', () => {
+  const init = {
+    fetchOptions: {
+      page: 1,
+      finished: false,
+      collection: undefined,
+      fileTypes: undefined,
+      sort: {},
+    },
+  }
+
   const fileItems = ref<IMediaItem[]>([])
   const loading = ref(false)
   const search = ref('')
-  const fetchOptions = ref<IFetchOptions>({
-    page: 1,
-    finished: false,
-    collection: undefined,
-    fileTypes: undefined,
-    sort: {},
-  })
+  const fetchOptions = ref<IFetchOptions>(init.fetchOptions)
 
   const fileDateSortItems = computed(() => [
     { label: t('media-library.asc'), value: 'created_at' },
@@ -96,6 +100,11 @@ export const useFileManagerStore = defineStore('fileManager', () => {
     })
   }
 
+  function $reset() {
+    fileItems.value = []
+    fetchOptions.value = init.fetchOptions
+  }
+
   return {
     // states
     fileItems,
@@ -110,5 +119,6 @@ export const useFileManagerStore = defineStore('fileManager', () => {
     colorType,
     fetchItems,
     deleteFile,
+    $reset,
   }
 })
