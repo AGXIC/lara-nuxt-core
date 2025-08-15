@@ -3,6 +3,7 @@ import {
   addComponentsDir,
   addImportsDir,
   addPlugin,
+  addRouteMiddleware,
   addServerHandler,
   defineNuxtModule,
 } from 'nuxt/kit'
@@ -17,6 +18,10 @@ export default defineNuxtModule({
     nuxt.hook('components:dirs', (app) => {
       app.push({ path: `${__dirname}/components` })
     })
+
+    addRouteMiddleware([
+      { name: 'admin', path: resolve(__dirname, './middlewares/admin.ts') },
+    ])
 
     addImportsDir([
       resolve(__dirname, './composables'),
@@ -48,8 +53,5 @@ export default defineNuxtModule({
       lazy: true,
       method: 'get',
     })
-  },
-  defaults: {
-    panelName: 'admin',
   },
 })

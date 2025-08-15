@@ -33,6 +33,7 @@ export default defineNuxtConfig({
     'nuxt-lodash',
     './modules/Core',
     './modules/Themes',
+    './modules/Cms',
   ],
   runtimeConfig: {
     public: {

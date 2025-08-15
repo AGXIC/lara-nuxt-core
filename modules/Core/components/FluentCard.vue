@@ -16,10 +16,8 @@
 
   const { isLargeScreen } = useDevice()
 
-  const isMounted = useMounted()
-
   const glowVars = computed(() => {
-    if (isLargeScreen.value && isMounted.value) {
+    if (isLargeScreen.value && isMounted()) {
       if (isOutside.value && !props.outSideEffect)
         return {
           '--glow-opacity': 0,
