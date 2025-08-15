@@ -31,6 +31,7 @@ export default defineNuxtModule({
             file: resolve(__dirname, './pages/admin/Faq.vue'),
             name: `${adminRouteName}-faq`,
             path: `/${adminRouteName}/faq`,
+            mode: 'client',
           },
         ]
       if (resolvedOptions.activePages.includes('blogs'))
@@ -45,13 +46,14 @@ export default defineNuxtModule({
           {
             file: resolve(__dirname, './pages/Blog/[slug].vue'),
             name: 'blog',
-            path: '/blog/:id',
+            path: '/blog/:slug',
           },
           // admin
           {
             file: resolve(__dirname, './pages/admin/Blogs.vue'),
             name: `${adminRouteName}-blogs`,
             path: `/${adminRouteName}/blogs`,
+            mode: 'client',
           },
         ]
     })
