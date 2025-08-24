@@ -83,7 +83,9 @@ export const useThemeStore = defineStore('themeStore', () => {
   const getProfileItems = computed(() => [
     {
       command() {
-        router.push(runtime.public.dashboardRoute)
+        router.push(
+          (runtime.public.agxicTheme?.layoutRoute || '/panel') + '/dashboard',
+        )
       },
       label: t('Dashboard'),
       icon: 'tabler:dashboard',

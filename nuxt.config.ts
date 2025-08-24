@@ -44,7 +44,6 @@ export default defineNuxtConfig({
       mapApiKey: process.env.NESHAN_WEB_KEY,
       mapServiceKey: process.env.NESHAN_SERVICE_KEY,
       recaptchaSiteKey: process.env.GOOGLE_RECAPTCHA,
-      dashboardRoute: process.env.DASHBOARD_ROUTE,
     },
   },
   primevue: {
