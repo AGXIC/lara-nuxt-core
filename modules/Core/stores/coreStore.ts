@@ -32,13 +32,13 @@ interface ISiteInfo {
 export const useCoreStore = defineStore('core', () => {
   const uploader = ref<IUploader>()
   const neshan_map = ref<IMap>()
-  const siteInfo = ref<ISiteInfo>()
+  const site_info = ref<ISiteInfo>()
 
   function fetchConfigs() {
     useSanctumFetch('/configs').then((res) => {
       uploader.value = res.uploader
       neshan_map.value = res.neshan_map
-      siteInfo.value = res.siteInfo
+      site_info.value = res.site_info
     })
   }
 
@@ -46,7 +46,7 @@ export const useCoreStore = defineStore('core', () => {
     //states
     uploader,
     neshan_map,
-    siteInfo,
+    site_info,
     // actions
     fetchConfigs,
   }

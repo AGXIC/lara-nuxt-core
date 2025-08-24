@@ -37,14 +37,14 @@
         <NuxtImg
           class="size-10"
           v-bind="
-            coreStore.siteInfo?.logo
+            coreStore.site_info?.logo
               ? { provider: 'laravel', loading: 'lazy' }
               : {}
           "
-          :src="coreStore.siteInfo?.logo || '/temp/images/agxicWhite.png'"
+          :src="coreStore.site_info?.logo || '/temp/images/agxicWhite.png'"
         />
         <strong class="xl:text-2xl text-base">{{
-          coreStore.siteInfo?.title || 'Site Title'
+          coreStore.site_info?.title || 'Site Title'
         }}</strong>
       </NuxtLink>
       <button
