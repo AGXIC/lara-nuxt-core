@@ -34,6 +34,7 @@ export default defineNuxtConfig({
     './modules/Core',
     './modules/Themes',
     './modules/Cms',
+    './modules/Tickets',
   ],
   runtimeConfig: {
     public: {
