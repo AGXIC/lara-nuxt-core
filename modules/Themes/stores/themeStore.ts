@@ -3,7 +3,7 @@ import type { MenuItem } from 'primevue/menuitem'
 import type { DefineComponent } from 'vue'
 import type { RouteLocationAsRelativeGeneric } from 'vue-router'
 
-interface IMenuItem {
+export interface IMenuItem {
   label: string
   to?: Pick<RouteLocationAsRelativeGeneric, 'name' | 'params' | 'query'>
   icon?: string | DefineComponent
@@ -69,7 +69,8 @@ export const useThemeStore = defineStore('themeStore', () => {
         command() {
           drawerVisible.value = true
         },
-        icon: _isString(activeItem?.icon) ? activeItem?.icon : undefined,
+        icon:
+          typeof activeItem?.icon === 'string' ? activeItem?.icon : undefined,
       },
       ...(child
         ? [

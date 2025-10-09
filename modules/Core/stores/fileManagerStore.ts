@@ -60,7 +60,7 @@ export const useFileManagerStore = defineStore('fileManager', () => {
               collection: fetchOptions.value.collection,
               type: fetchOptions.value.fileTypes,
             },
-            sort: _join(_values(fetchOptions.value.sort), ','),
+            sort: Object.values(fetchOptions.value.sort).join(','),
           },
           {
             arrayFormat: 'brackets',

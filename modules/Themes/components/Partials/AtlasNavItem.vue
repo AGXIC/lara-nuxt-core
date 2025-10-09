@@ -50,9 +50,9 @@
           <template v-if="!noIcon">
             <component
               class="2xl:size-6 size-5"
-              v-bind="_isString(item.icon) ? { name: item.icon } : {}"
+              v-bind="typeof item.icon === 'string' ? { name: item.icon } : {}"
               v-if="item.icon"
-              :is="_isString(item.icon) ? Icon : item.icon"
+              :is="typeof item.icon === 'string' ? Icon : item.icon"
             />
             <Icon
               class="size-2 2xl:size-3"

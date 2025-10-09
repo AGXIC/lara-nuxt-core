@@ -56,15 +56,15 @@
     },
     set(newValue: Date | Date[]) {
       modelValue.value =
-        _isString(modelValue.value) || _isDate(modelValue.value)
+        typeof modelValue.value === 'string' || _isDate(modelValue.value)
           ? format(newValue as Date, formatShow.value, {
               locale: enUS,
             })
           : {
-              start: format((newValue as Date[])[0], formatShow.value, {
+              start: format((newValue as Date[])[0] as Date, formatShow.value, {
                 locale: enUS,
               }),
-              end: format((newValue as Date[])[1], formatShow.value, {
+              end: format((newValue as Date[])[1] as Date, formatShow.value, {
                 locale: enUS,
               }),
             }
@@ -75,7 +75,7 @@
 
   const date = computed(() => {
     if (modelValue.value) {
-      if (_isString(modelValue.value) || _isDate(modelValue.value))
+      if (typeof modelValue.value === 'string' || _isDate(modelValue.value))
         return format(modelValue.value, formatShow.value, {
           locale: locale.value.includes('fa') ? faIR : enUS,
         })

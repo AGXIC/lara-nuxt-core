@@ -19,6 +19,10 @@ export default defineNuxtModule({
       app.push({ path: `${__dirname}/components` })
     })
 
+    nuxt.hook('prepare:types', (args) => {
+      args.tsConfig.include = [resolve(__dirname, './types/**/*.d.ts')]
+    })
+
     addRouteMiddleware([
       { name: 'admin', path: resolve(__dirname, './middlewares/admin.ts') },
     ])
@@ -35,7 +39,6 @@ export default defineNuxtModule({
 
     addComponentsDir({
       path: resolve(__dirname, './components/Crud'),
-      enabled: true,
       global: true,
       pathPrefix: true,
     })

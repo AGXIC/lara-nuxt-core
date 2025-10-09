@@ -12,16 +12,15 @@
     <div
       class="flex flex-nowrap items-center gap-x-2 rounded-xl p-3 transition duration-500 dark:bg-blue-900/70 bg-blue-600/70 dark:hover:bg-blue-900 hover:bg-blue-600 text-white"
       v-if="
-        _isArray(selectedItems) &&
+        Array.isArray(selectedItems) &&
         !!selectedItems.filter(({ deleted_at }) => !!deleted_at).length
       "
       @click="
         emit(
           'data:restore',
-          _map(
-            selectedItems.filter(({ deleted_at }) => !!deleted_at),
-            'id',
-          ),
+          selectedItems
+            .filter(({ deleted_at }) => !!deleted_at)
+            .map(({ id }) => id),
         )
       "
     >
@@ -36,8 +35,13 @@
     </div>
     <div
       class="flex flex-nowrap items-center gap-x-2 rounded-xl p-3 transition duration-500 dark:bg-red-700/70 bg-red-600/70 dark:hover:bg-red-700 hover:bg-red-600 text-white"
-      v-if="_isArray(selectedItems)"
-      @click="emit('data:delete', _map(selectedItems, 'id'))"
+      v-if="Array.isArray(selectedItems)"
+      @click="
+        emit(
+          'data:delete',
+          selectedItems.map(({ id }) => id),
+        )
+      "
     >
       <Icon class="size-8" name="tabler:trash" />
       <div class="flex flex-col gap-y-2">

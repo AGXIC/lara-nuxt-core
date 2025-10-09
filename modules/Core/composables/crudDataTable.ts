@@ -77,7 +77,7 @@ export function useCrudDataTable<T extends IModel>(
 
   const removeItems = (ids: number | number[]) => {
     _remove(data.value?.data || [], ({ id: itemId }) =>
-      _isArray(ids) ? _includes(ids, itemId || 0) : itemId === ids,
+      Array.isArray(ids) ? ids.includes(itemId || 0) : itemId === ids,
     )
   }
 

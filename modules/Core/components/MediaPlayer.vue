@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-  import { twJoin } from 'tailwind-merge'
-
   defineOptions({
     inheritAttrs: false,
   })
@@ -76,7 +74,7 @@
 
   const playbackRate = ref(1)
 
-  const setPlaybackRate = (rate: number) => {
+  watch(playbackRate, (rate) => {
     playbackRate.value = rate
     if (soundPlayerInstance.value) {
       soundPlayerInstance.value.setPlaybackRate(rate)
@@ -84,7 +82,7 @@
     if (videoPlayer.value) {
       videoPlayer.value.playbackRate = rate
     }
-  }
+  })
 
   const soundIcon = computed(() => {
     switch (true) {
@@ -173,7 +171,7 @@
 <template>
   <div
     :class="
-      twJoin(
+      twMerge(
         containerClass,
         'flex flex-col gap-y-2 rounded-xl p-2 bg-gray-200 dark:bg-slate-800',
       )
@@ -183,7 +181,7 @@
       <Teleport :disabled="!teleported" to="body">
         <video
           :class="
-            twJoin(
+            twMerge(
               ui?.videoClasses,
               'rounded-t-2xl rounded-b-lg aspect-video w-full',
             )
@@ -206,7 +204,7 @@
     </div>
     <div
       :class="
-        twJoin(
+        twMerge(
           ui?.audioClasses,
           'bg-primary/10 dark:bg-slate-500/50',
           isVideo ? 'rounded-b-2xl rounded-t-lg' : 'rounded-lg',
@@ -282,7 +280,6 @@
                   :max="2"
                   :min="0.5"
                   :step="0.1"
-                  @change="setPlaybackRate"
                   dir="ltr"
                 />
                 <div class="text-sm">{{ playbackRate }}x</div>

@@ -1,6 +1,5 @@
 <script lang="ts" setup>
   import { type IMap, useCoreStore } from '../stores/coreStore'
-  import { twMerge } from 'tailwind-merge'
 
   defineOptions({
     inheritAttrs: false,

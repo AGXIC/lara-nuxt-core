@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+  import type { IMenuItem, TMenuItem } from '../../stores/themeStore'
   import AtlasNavItem from './AtlasNavItem.vue'
 
   const auth = useAuthStore()
@@ -18,25 +19,40 @@
   const commandPalette = shallowRef(false)
   const searchCommand = ref('')
 
+  export function flattenMenu(
+    items: TMenuItem[],
+  ): (IMenuItem & { active?: boolean; hasSubmenu?: boolean })[] {
+    const result: (IMenuItem & { active?: boolean; hasSubmenu?: boolean })[] =
+      []
+
+    for (const item of items) {
+      const { children, ...rest } = item
+      result.push({ ...rest, hasSubmenu: !!children?.length }) // ← این را اضافه کن
+
+      if (children?.length) {
+        result.push(
+          ...children.map((child) => ({ ...child, hasSubmenu: false })),
+        )
+      }
+    }
+
+    return result
+  }
+
   const searchedNavItems = computed(() =>
     searchCommand.value.length
-      ? _flatten(
-          theme.getAccessibleNavItems
-            .filter(
-              (item) =>
-                item.label.includes(searchCommand.value) ||
-                item.children?.find((child) =>
-                  child.label.includes(searchCommand.value),
-                ),
-            )
-            .map((item) => {
-              if (!item.children) return item
-              else item.children
-            }),
+      ? flattenMenu(
+          theme.getAccessibleNavItems.filter(
+            (item) =>
+              item.label.includes(searchCommand.value) ||
+              item.children?.some((child) =>
+                child.label.includes(searchCommand.value),
+              ),
+          ),
         )
-      : theme.getAccessibleNavItems
-          .filter(({ children }) => !children)
-          .slice(0, 7),
+      : flattenMenu(
+          theme.getAccessibleNavItems.filter(({ children }) => !children),
+        ).slice(0, 7),
   )
 
   const { arrivedState, y } = useWindowScroll()
@@ -160,7 +176,7 @@
         <AtlasNavItem
           v-for="(item, i) in searchedNavItems.filter((it) => !!it)"
           :active="!!item.active"
-          :hasSubmenu="!!item.children"
+          :hasSubmenu="!!item.hasSubmenu"
           :item="item"
           :key="i"
           no-glow

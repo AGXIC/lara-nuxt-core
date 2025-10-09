@@ -36,9 +36,10 @@
   const router = useRouter()
 
   const [pageName] =
-    _isString(router.currentRoute.value.name) && props.options?.noRouteEffect
+    typeof router.currentRoute.value.name === 'string' &&
+    props.options?.noRouteEffect
       ? _tail(router.currentRoute.value.name.split('-'))
-      : _tail(props.api?.split('/')) || []
+      : _tail(props.api?.split('/') || [])
 
   const {
     data: dataFields,
@@ -154,7 +155,7 @@
   const restoreItem = (id: number | number[]) => {
     confirmationModal(
       t('Restore', { name: props.pronounce || t('record') }),
-      _isArray(id)
+      Array.isArray(id)
         ? t('Do you want to restore this records?')
         : t('Do you want to restore this record?', {
             record: props.pronounce || t('record'),
@@ -191,11 +192,11 @@
   const bulkAction = shallowRef(false)
 
   const multipleActions = computed(() => {
-    const selectedRecords = _isArray(selectedItems.value)
+    const selectedRecords = Array.isArray(selectedItems.value)
       ? selectedItems.value
       : []
 
-    const getIds = (records: T[]) => _map(records, 'id')
+    const getIds = (records: T[]) => records.map(({ id }) => id)
 
     return [
       ...(auth.hasPermission(`${pageName}-restore`) ||
@@ -241,7 +242,7 @@
   })
 
   function onShowOrCreate(id?: number) {
-    if (!_isString(props.formComponent)) {
+    if (typeof props.formComponent !== 'string') {
       formDialog.id = id || null
       formDialog.dialog = true
     } else
@@ -288,9 +289,9 @@
             v-if="auth.hasPermission(`${pageName}-bulk`)"
             :disabled="
               loading ||
-              (_isArray(selectedItems) ? !selectedItems.length : true)
+              (Array.isArray(selectedItems) ? !selectedItems.length : true)
             "
-            :label="`${$t('Selected Items')}: (${_isArray(selectedItems) ? selectedItems.length : 0})`"
+            :label="`${$t('Selected Items')}: (${Array.isArray(selectedItems) ? selectedItems.length : 0})`"
             :model="multipleActions"
             severity="secondary"
             variant="outlined"
@@ -300,12 +301,14 @@
             v-else-if="auth.hasPermission(`${pageName}-delete`)"
             :disabled="
               loading ||
-              (_isArray(selectedItems) ? !selectedItems.length : true)
+              (Array.isArray(selectedItems) ? !selectedItems.length : true)
             "
-            :label="`${$t('Delete')}: (${_isArray(selectedItems) ? selectedItems.length : 0})`"
+            :label="`${$t('Delete')}: (${Array.isArray(selectedItems) ? selectedItems.length : 0})`"
             @click="
               deleteItem(
-                _isArray(selectedItems) ? _map(selectedItems, 'id') : [],
+                Array.isArray(selectedItems)
+                  ? selectedItems.map(({ id }) => id)
+                  : [],
               )
             "
             icon="pi pi-trash"
@@ -458,7 +461,7 @@
     </template>
   </Card>
   <Dialog
-    v-if="!_isString(formComponent)"
+    v-if="typeof formComponent !== 'string'"
     v-model:visible="formDialog.dialog"
     @update:visible="!$event ? (formDialog.id = null) : undefined"
     header="Flex Scroll"

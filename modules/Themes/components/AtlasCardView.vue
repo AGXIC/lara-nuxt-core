@@ -1,6 +1,4 @@
-<script lang="ts" setup>
-  import { twMerge } from 'tailwind-merge'
-</script>
+<script lang="ts" setup></script>
 
 <template>
   <div

@@ -29,7 +29,7 @@ export function d(
     if (isNaN(dateObj.getTime())) return '—'
 
     const formatted = $i18n?.d?.(dateObj, type) || dateObj.toLocaleString()
-    return '\u200E' + formatted.replace(',', '')
+    return '\u200E' + formatted.replace(', ', ' - ')
   } catch (error) {
     console.error('Date formatting error:', error)
     return '—'

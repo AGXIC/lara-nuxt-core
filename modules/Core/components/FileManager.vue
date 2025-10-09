@@ -46,7 +46,7 @@
     confirm.require({
       target: event.currentTarget,
       group: 'deleteFile',
-      message: _isArray(id)
+      message: Array.isArray(id)
         ? t('Do you want to delete this files?')
         : t('Do you want to delete this file?'),
       icon: 'pi pi-info-circle',
@@ -166,13 +166,18 @@
         </div>
         <Button
           v-if="multiple && authStore.hasPermission('delete-files')"
-          :disabled="_isArray(value) && !value.length"
+          :disabled="Array.isArray(value) && !value.length"
           :label="
-            $t('Delete', { name: `(${_isArray(value) ? value.length : 0})` })
+            $t('Delete', {
+              name: `(${Array.isArray(value) ? value.length : 0})`,
+            })
           "
           @click="
-            _isArray(value)
-              ? deleteFileItemDialog($event, _map(value, 'id'))
+            Array.isArray(value)
+              ? deleteFileItemDialog(
+                  $event,
+                  value.map(({ id }) => id),
+                )
               : undefined
           "
           icon="pi pi-trash"

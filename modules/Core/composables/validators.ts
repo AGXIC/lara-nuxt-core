@@ -1,41 +1,39 @@
 import { zodResolver } from '@primevue/forms/resolvers/zod'
-import { z } from 'zod'
+import * as z from 'zod'
 
 export const useValidators = () => {
   const isRequired = (val: any) =>
     _isEmpty(val) || t('Entering this field is required')
 
   const stringSchema = () =>
-    z.string({ required_error: t('Entering this field is required') })
+    z.string({ error: t('Entering this field is required') })
 
   const iranianMobileNumber = () =>
     stringSchema().regex(/^(09\d{9})$/g, {
-      message: t('The entered number is not valid'),
+      error: t('The entered number is not valid'),
     })
 
   const isEmail = () =>
-    stringSchema().email({
-      message: t('The entered email is not valid'),
+    z.email({
+      error: t('The entered email is not valid'),
     })
 
-  const isValidUrl = () =>
-    stringSchema().url({ message: t('The entered Url is not valid') })
+  const isValidUrl = () => z.url({ error: t('The entered Url is not valid') })
 
-  const isDateTime = () => z.string().datetime()
+  const isDateTime = () => z.iso.datetime()
 
-  const isDate = () => z.date({ message: t('The entered Date is not valid') })
+  const isDate = () => z.date({ error: t('The entered Date is not valid') })
 
-  const isTime = () =>
-    stringSchema().time({ message: t('The entered Time is not valid') })
+  const isTime = () => z.iso.time({ error: t('The entered Time is not valid') })
 
   const englishOnly = () =>
     stringSchema().regex(/^[a-zA-Z ]+$/g, {
-      message: t('Please switch your keyboard to English'),
+      error: t('Please switch your keyboard to English'),
     })
 
   const persianOnly = () =>
     stringSchema().regex(/^[\u0600-\u06FF\s]+$/g, {
-      message: t('Please switch your keyboard to Persian'),
+      error: t('Please switch your keyboard to Persian'),
     })
 
   const resolver = ref()
@@ -44,6 +42,7 @@ export const useValidators = () => {
 
   return {
     z,
+    stringSchema,
     isRequired,
     iranianMobileNumber,
     isEmail,

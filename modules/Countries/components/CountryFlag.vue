@@ -1,6 +1,5 @@
 <script lang="ts" setup>
   import 'flag-icons/css/flag-icons.min.css'
-  import { twJoin } from 'tailwind-merge'
 
   interface IProps {
     code: string
@@ -21,7 +20,7 @@
     :class="[
       `fi-${code.toLowerCase()}`,
       fis && 'fis',
-      twJoin(
+      twMerge(
         otherClasses,
         rounded && 'rounded-full bg-cover bg-center aspect-square',
       ),

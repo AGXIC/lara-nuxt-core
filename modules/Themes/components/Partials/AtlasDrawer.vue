@@ -24,7 +24,8 @@
             'pt:header:class': '!hidden',
             'pt:content:class': '!px-3 !pb-3 flex flex-col',
             'pt:root:class': '!bg-slate-900',
-            position: $i18n.localeProperties.dir !== 'rtl' ? 'right' : 'left',
+            position:
+              $i18n.localeProperties.value.dir !== 'rtl' ? 'right' : 'left',
           }
         : {
             class: 'px-2 pb-2 pt-4 h-full overflow-hidden flex flex-col',

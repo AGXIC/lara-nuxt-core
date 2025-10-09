@@ -1,0 +1,36 @@
+# Configuration for `@nuxt/devtools`
+devtools.enabled=true
+devtools.vscode.enabled=true
+devtools.vscode.reuseExistingServer=true
+
+# Add Nuxt modules
+modules[]=@primevue/nuxt-module
+modules[]=@nuxtjs/i18n
+modules[]=@nuxt/eslint
+modules[]=@nuxt/image
+modules[]=@nuxt/fonts
+modules[]=@nuxt/scripts
+modules[]=@pinia/nuxt
+modules[]=@vueuse/nuxt
+modules[]=@vite-pwa/nuxt
+modules[]=@nuxt/icon
+modules[]=@qirolab/nuxt-sanctum-authentication
+modules[]=nuxt-svgo
+modules[]=nuxt-delay-hydration
+
+# Experimental
+experimental.inlineRouteRules = true
+experimental.payloadExtraction = true
+experimental.crossOriginPrefetch = true
+experimental.buildCache = true
+experimental.asyncContext = true
+
+# Eslint
+eslint.checker = true
+
+# Router
+router.options.scrollBehaviorType=smooth
+
+# Typescript
+typescript.typeCheck=false
+typescript.tsConfig.include[]=../types/*.d.ts

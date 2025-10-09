@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-  import { twMerge } from 'tailwind-merge'
-
   interface IProps {
     outSideEffect?: boolean
     neonBorder?: boolean

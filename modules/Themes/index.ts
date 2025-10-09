@@ -34,6 +34,10 @@ export default defineNuxtModule({
       }
     })
 
+    nuxt.hook('prepare:types', (args) => {
+      args.tsConfig.include = [resolve(__dirname, './types/**/*.d.ts')]
+    })
+
     addImportsDir([resolve(__dirname, './stores')])
   },
   defaults: {

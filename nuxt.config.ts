@@ -1,36 +1,15 @@
 import Aura from '@primeuix/themes/aura'
 import tailwindcss from '@tailwindcss/vite'
-import eslint from 'vite-plugin-eslint2'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-05-15',
-  devtools: {
-    enabled: true,
-    vscode: {
-      enabled: true,
-      reuseExistingServer: true,
-    },
-  },
   css: [
     '~/assets/css/main.css',
     '~/assets/css/toman.css',
     '~/assets/css/transitions.css',
   ],
   modules: [
-    '@primevue/nuxt-module',
-    '@nuxtjs/seo',
-    '@pinia/nuxt',
-    '@nuxt/fonts',
-    '@nuxt/eslint',
-    '@nuxt/image',
-    '@nuxtjs/i18n',
-    '@nuxt/icon',
-    '@vite-pwa/nuxt',
-    '@vueuse/nuxt',
-    'nuxt-svgo',
-    '@qirolab/nuxt-sanctum-authentication',
-    'nuxt-lodash',
     './modules/Core',
     './modules/Themes',
     './modules/Cms',
@@ -46,6 +25,9 @@ export default defineNuxtConfig({
       mapServiceKey: process.env.NESHAN_SERVICE_KEY,
       recaptchaSiteKey: process.env.GOOGLE_RECAPTCHA,
     },
+  },
+  imports: {
+    imports: [{ name: 'twMerge', from: 'tailwind-merge' }],
   },
   primevue: {
     usePrimeVue: true,
@@ -81,38 +63,20 @@ export default defineNuxtConfig({
     },
   },
   vite: {
-    plugins: [tailwindcss(), eslint()],
-    css: {
-      preprocessorOptions: {
-        scss: {
-          api: 'modern-compiler',
-        },
-      },
-    },
+    plugins: [tailwindcss()],
     resolve: {
       mainFields: ['browser', 'module', 'main', 'jsnext:main', 'jsnext'],
     },
     ssr: {
       noExternal: ['@chenfengyuan/vue-countdown', 'vue-countup-v3'],
     },
-    optimizeDeps: {
-      include: ['vue-countup-v3', '@chenfengyuan/vue-countdown'],
-    },
-  },
-  postcss: {
-    plugins: {
-      cssnano: {
-        preset: ['default', { minifyFontValues: { removeQuotes: false } }],
-      },
-    },
   },
   i18n: {
     strategy: 'no_prefix',
-    defaultLocale: 'fa-IR',
-    lazy: true,
+    defaultLocale: 'fa',
     locales: [
       {
-        code: 'fa-IR',
+        code: 'fa',
         files: [
           { path: './fa/common.json' },
           { path: './fa/errors.json', cache: true },
@@ -127,13 +91,9 @@ export default defineNuxtConfig({
     types: 'composition',
     defaultDirection: 'rtl',
     experimental: {
-      typedOptionsAndMessages: 'all',
-      autoImportTranslationFunctions: true,
+      preload: true,
     },
     vueI18n: './i18n.config.ts',
-    bundle: {
-      optimizeTranslationDirective: false,
-    },
   },
   fonts: {
     providers: {
@@ -159,34 +119,6 @@ export default defineNuxtConfig({
       },
     ],
     processCSSVariables: true,
-  },
-  router: {
-    options: {
-      scrollBehaviorType: 'smooth',
-    },
-  },
-  future: {
-    typescriptBundlerResolution: true,
-    compatibilityVersion: 4,
-  },
-  features: {
-    inlineStyles: false,
-  },
-  $development: {
-    seo: {
-      debug: true,
-    },
-    experimental: {
-      watcher: 'parcel',
-    },
-    fonts: {
-      devtools: true,
-    },
-  },
-  lodash: {
-    prefix: '_',
-    prefixSkip: ['string'],
-    upperAfterPrefix: false,
   },
   svgo: {
     dts: true,
@@ -220,5 +152,85 @@ export default defineNuxtConfig({
       collections: ['ph', 'fluent', 'mingcute', 'tabler'],
     },
     cssLayer: 'base',
+  },
+  delayHydration: {
+    mode: 'mount',
+    include: ['/', '/about-us', '/contact-us'],
+    exclude: ['**/panel/**'],
+  },
+  nitro: {
+    compressPublicAssets: {
+      brotli: true,
+    },
+    minify: true,
+    routeRules: {
+      '/**': {
+        headers: {
+          // HSTS
+          'Strict-Transport-Security':
+            'max-age=31536000; includeSubDomains; preload',
+
+          // Clickjacking
+          'X-Frame-Options': 'DENY',
+
+          // CSP
+          'Content-Security-Policy': `
+            frame-ancestors 'none';
+            base-uri 'self';
+          `
+            .replace(/\s{2,}/g, ' ')
+            .trim(),
+        },
+      },
+    },
+  },
+  $development: {
+    fonts: {
+      devtools: true,
+    },
+    delayHydration: {
+      debug: true,
+    },
+  },
+  $production: {
+    app: {
+      head: {
+        script: [
+          {
+            src: 'https://instant.page/5.2.0',
+            type: 'module',
+            integrity:
+              'sha384-jnZyxPjiipYXnSU0ygqeac2q7CVYMbh84q0uHVRRxEtvFPiQYbXWUorga2aqZJ0z',
+            tagPosition: 'bodyOpen',
+          },
+        ],
+      },
+    },
+    postcss: {
+      plugins: {
+        cssnano: {
+          preset: ['default', { minifyFontValues: { removeQuotes: false } }],
+        },
+      },
+    },
+    nitro: {
+      routeRules: {
+        '/_nuxt/**': {
+          headers: {
+            'cache-control': `public,max-age=900,s-maxage=900,immutable`,
+          },
+        },
+        '/temp/**': {
+          headers: {
+            'cache-control': `public,max-age=31536000,s-maxage=31536000,immutable`,
+          },
+        },
+        '/fonts/**': {
+          headers: {
+            'cache-control': `public,max-age=31536000,s-maxage=31536000,immutable`,
+          },
+        },
+      },
+    },
   },
 })
